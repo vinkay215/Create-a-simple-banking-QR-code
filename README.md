@@ -7,7 +7,7 @@ This is a simple source code using HTML and JavaScript to create a QR code for r
 <img src="https://github.com/vinkay215/Create-a-simple-banking-QR-code/blob/main/interface.png" width="350"/>  
 
 
-**Author**: VinKay
+**Author**: Nguyễn Quốc Vinh (VinKay)
 - **[Website]([https://github.com/DenverCoder1](https://nguyenquocvinh.glitch.me/)https://nguyenquocvinh.glitch.me/)**
 https://nguyenquocvinh.glitch.me
 
