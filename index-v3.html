@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo QR chuyển khoản</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #F5B041;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 400px;
+            background-color: #2c2c2c;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .input-container {
+            position: relative;
+            margin-bottom: 15px;
+        }/*
+        .input-container input {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            color: #fff;
+            background-color: #333;
+            border: none;
+            border-radius: 8px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        }
+
+
+
+        */
+       .input-container {
+    padding: 0 10px; /* Tạo khoảng cách đều ở hai bên của container */
+}
+
+.input-container input {
+    width: 100%; /* Chiều rộng của ô nhập chiếm toàn bộ container */
+    padding: 15px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #333;
+    border: none;
+    border-radius: 8px;
+    padding-left: 50px; /* Tạo khoảng cách cho biểu tượng ở bên trái */
+    box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước */
+}
+        .input-container::before {
+            content: "💰";
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #F5B041;
+        }
+
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #2c2c2c;
+            background: linear-gradient(to right, #F5B041, #D68910);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: linear-gradient(to right, #D68910, #F5B041);
+        }
+        .qr-code-container {
+            display: flex;
+            align-items: center;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        .qr-code-container img {
+            max-width: 120px;
+            height: auto;
+            margin-right: 20px;
+            border-radius: 8px;
+        }
+        .qr-info {
+            text-align: left;
+            color: #F5B041;
+            font-size: 16px;
+        }
+        .qr-info span {
+            color: #fff;
+            font-weight: bold;
+        }
+        .qr-info p {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>CHUYỂN TIỀN NHANH BẰNG QR CODE</h2>
+        <div class="input-container">
+            <input type="text" id="amountInput" placeholder="Nhập số tiền" oninput="updateAmountAndQR()">
+        </div>
+        
+        <div class="qr-code-container" id="qrContainer" style="display: none;">
+            <img id="qrImage" src="" alt="QR Code">
+            <div class="qr-info">
+                <p>NGÂN HÀNG: <span>MB BANK</span></p>
+                <p>CTK: <span id="accountName"></span></p>
+                <p>STK: <span id="accountNo"></span></p>
+                <p>SỐ TIỀN: <span id="formattedAmount">0 VND</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const BANK_ID = "970422"; // ID ngân hàng bạn sẽ lấy từ Quick Link VietQR
+        const ACCOUNT_NO = "98888888899"; // Số tài khoản
+        const DESCRIPTION = "Donate"; // Mô tả
+        const ACCOUNT_NAME = "NGUYEN QUOC VINH"; // Tên tài khoản
+
+        // Đặt tên tài khoản và số tài khoản vào phần tử HTML khi tải trang
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("accountName").textContent = ACCOUNT_NAME;
+            document.getElementById("accountNo").textContent = ACCOUNT_NO;
+        });
+
+        // Cập nhật số tiền và mã QR
+        function updateAmountAndQR() {
+            const amountInput = document.getElementById("amountInput").value;
+            const formattedAmount = new Intl.NumberFormat("vi-VN").format(amountInput);
+            document.getElementById("formattedAmount").textContent = `${formattedAmount} VND`;
+            generateQR(amountInput);
+        }
+
+        // Hàm tạo mã QR
+        function generateQR(amountInput) {
+            if (amountInput) {
+                const qrImageUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-qr_only.png?amount=${amountInput}&addInfo=${DESCRIPTION}&accountName=${ACCOUNT_NAME}`;
+                const qrImage = document.getElementById("qrImage");
+                qrImage.src = qrImageUrl;
+                document.getElementById("qrContainer").style.display = "flex";
+            } else {
+                document.getElementById("qrContainer").style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
+<!--source: https://github.com/vinkay215    Author: Vinkay -->
