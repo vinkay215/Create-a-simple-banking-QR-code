@@ -144,7 +144,7 @@
             document.getElementById("formattedAmount").textContent = `${formattedAmount} VND`;
         }
 
-        // Hàm tạo mã QR
+        // Hàm tạo mã QR 
         function generateQR() {
             const amountInput = document.getElementById("amountInput").value;
             const qrImageUrl = `https://img.vietqr.io/image/${BANK_ID}-${ACCOUNT_NO}-qr_only.png?amount=${amountInput}&addInfo=${DESCRIPTION}&accountName=${ACCOUNT_NAME}`;
